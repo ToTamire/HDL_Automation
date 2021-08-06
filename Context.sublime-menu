@@ -1,0 +1,16 @@
+[
+    {
+        "caption" : "-"
+    },
+    {
+        "id": "HDL_Automation",
+        "caption": "HDL_Automation",
+        "children":
+        [
+            {
+                "caption": "Format",
+                "command": "format"
+            }
+        ]
+    }
+]

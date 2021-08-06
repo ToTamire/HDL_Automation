@@ -1,0 +1,38 @@
+[
+    {
+        "caption": "Preferences",
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "HDL_Automation",
+                        "children":
+                        [
+                            {
+                                "command": "open_file",
+                                "args":
+                                {
+                                    "file": "${packages}/HDL_Automation/HDL_Automation.sublime-settings"
+                                },
+                                "caption": "Settings – Default"
+                            },
+                            {
+                                "command": "open_file",
+                                "args":
+                                {
+                                    "file": "${packages}/User/HDL_Automation.sublime-settings"
+                                },
+                                "caption": "Settings – User"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
