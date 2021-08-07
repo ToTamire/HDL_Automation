@@ -1,7 +1,10 @@
 # HDL_Automation
 Verilog and SystemVerilog automation with Sublime Text 4
 
-![Animation](https://user-images.githubusercontent.com/71039587/128532016-b6221a38-8453-4ba8-baac-10a81ce8e7f5.gif)
+* Auto format file
+![auto_format_file](https://user-images.githubusercontent.com/71039587/128532016-b6221a38-8453-4ba8-baac-10a81ce8e7f5.gif)
+* Auto format selections
+![auto_format_selections](https://user-images.githubusercontent.com/71039587/128612725-e45b1844-2735-4e5d-90ca-f95e3f6ef31a.gif)
 
 # The repository owners are:
 - Dawid Szulc dawidszulc094@gmail.com

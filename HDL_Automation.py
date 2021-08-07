@@ -58,6 +58,8 @@ class FormatCommand(sublime_plugin.TextCommand):
                 content = view.substr(sublime_region)  # get content of the region as a string
                 content = content.encode()  # convert current file content to byte string
 
+                line_ranges = self.get_sel_line_ranges(view)  # get selection line ranges
+
                 process = []  # create list of process parameters
                 if windows_subsystem_for_linux:  # if user has Verible under Windows Subsystem for Linux
                     process.append('wsl')  # run the Verible under Windows Subsystem for Linux
@@ -78,6 +80,8 @@ class FormatCommand(sublime_plugin.TextCommand):
                 process.append(f"--struct_union_members_alignment={struct_union_members_alignment}")
                 process.append(f"--try_wrap_long_lines={try_wrap_long_lines}")
                 process.append(f"--expand_coverpoints={expand_coverpoints}")
+                if line_ranges:  # if user select specific lines to format
+                    process.append(f"--lines={line_ranges}")  # specify lines to format
                 process.append(f"-")  # to pipe from stdin
 
                 try:  # prevent CalledProcessError
@@ -111,6 +115,21 @@ class FormatCommand(sublime_plugin.TextCommand):
             if path_ext.lower() in ['.v', '.vh', '.sv', '.svh']:
                 return True  # enable format command
         return False  # otherwise disable format command
+
+    def get_sel_line_ranges(self, view):
+        '''Convert selections to 1-based, comma-separated, N-M ranges'''
+        selections = view.sel()  # get user selections
+        line_ranges = ''  # initialize parameter which specify lines to format
+        for key, selection in enumerate(selections):  # for each selection
+            selection_begin = selection.begin()  # get starting point of selection
+            selection_end = selection.end()  # get ending point of selection
+            if selection_begin != selection_end:  # if selection contains minimum one character
+                selection_begin_line = view.rowcol(selection_begin)[0] + 1  # get starting line of selection
+                selection_end_line = view.rowcol(selection_end)[0] + 1  # get ending line of selection
+                line_ranges += f"{selection_begin_line}-{selection_end_line},"  # insert selection range
+        if line_ranges:  # if user select specific lines to format
+            line_ranges = line_ranges[:-1]  # remove last comma
+        return line_ranges
 
 
 class HDL_Automation_settings:
