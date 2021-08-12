@@ -1,0 +1,17 @@
+{
+    "schema_version": "3.0.0",
+    "packages": [
+        {
+            "name": "HDL_Automation",
+            "details": "https://github.com/ToTamire/HDL_Automation",
+            "labels": ["text manipulation", "formatting"],
+            "releases": [
+                {
+                    "platforms": ["windows", "linux"],
+                    "sublime_text": ">=4000",
+                    "tags": true
+                }
+            ]
+        }
+    ]
+}

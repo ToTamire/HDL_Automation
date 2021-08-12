@@ -1,0 +1,5 @@
+HDL_Automation - Verilog and SystemVerilog automation with Sublime Text 4
+
+Features:
+* Auto format entire file
+* Auto format one or more selections

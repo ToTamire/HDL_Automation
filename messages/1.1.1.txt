@@ -1,0 +1,3 @@
+HDL_Automation 1.1.1 Changelog:
+
+Package Control release

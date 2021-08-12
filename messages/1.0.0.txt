@@ -1,0 +1,7 @@
+HDL_Automation 1.0.0 Changelog:
+
+Auto format can be made on the entire file.
+
+* Press right mouse button on Verilog or System Verilog file,
+* Select HDL_Automation,
+* Press Format.
