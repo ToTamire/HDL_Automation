@@ -1,0 +1,8 @@
+HDL_Automation 1.1.2 Changelog:
+
+User interface improvement
+
+ * Settings in split view,
+ * Settings visible in command palette,
+ * Format command visible in command palette,
+ * Shortening setting names.

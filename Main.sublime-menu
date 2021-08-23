@@ -14,20 +14,13 @@
                         "children":
                         [
                             {
-                                "command": "open_file",
+                                "command": "edit_settings",
                                 "args":
                                 {
-                                    "file": "${packages}/HDL_Automation/HDL_Automation.sublime-settings"
+                                    "base_file": "${packages}/HDL_Automation/HDL_Automation.sublime-settings",
+                                    "default": "{\n\t$0\n}\n"
                                 },
-                                "caption": "Settings – Default"
-                            },
-                            {
-                                "command": "open_file",
-                                "args":
-                                {
-                                    "file": "${packages}/User/HDL_Automation.sublime-settings"
-                                },
-                                "caption": "Settings – User"
+                                "caption": "Settings"
                             }
                         ]
                     }

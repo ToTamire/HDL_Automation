@@ -1,0 +1,15 @@
+[
+    {
+        "caption": "HDL_Automation: Format",
+        "command": "format"
+    },
+    {
+        "caption": "HDL_Automation: Settings",
+        "command": "edit_settings",
+        "args":
+        {
+            "base_file": "${packages}/HDL_Automation/HDL_Automation.sublime-settings",
+            "default": "{\n\t$0\n}\n"
+        }
+    }
+]

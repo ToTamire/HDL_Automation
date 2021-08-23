@@ -29,6 +29,7 @@ class FormatCommand(sublime_plugin.TextCommand):
         Called when the format command is run
         '''
         # get settings
+        settings.reload()
         assignment_statement_alignment = settings.assignment_statement_alignment()
         case_items_alignment = settings.case_items_alignment()
         class_member_variables_alignment = settings.class_member_variables_alignment()
@@ -102,7 +103,7 @@ class FormatCommand(sublime_plugin.TextCommand):
                     output = '\n'.join(lines) + '\n'  # concatenate lines
                     view.replace(args, sublime_region, output)  # replace old file content with formated file content
 
-    def is_enabled(self):
+    def is_visible(self):
         '''
         Returns True if the format command is able to be run at this time
         '''
@@ -139,11 +140,15 @@ class HDL_Automation_settings:
         '''Load settings from file'''
         self.settings = sublime.load_settings('HDL_Automation.sublime-settings')
 
+    def reload(self):
+        '''Load settings from file'''
+        self.settings = sublime.load_settings('HDL_Automation.sublime-settings')
+
     def assignment_statement_alignment(self):
         '''Format various assignments
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_assignment_statement_alignment")  # get setting
+        setting = self.settings.get("assignment_statement_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -155,7 +160,7 @@ class HDL_Automation_settings:
         '''Format case items
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_case_items_alignment")  # get setting
+        setting = self.settings.get("case_items_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -167,7 +172,7 @@ class HDL_Automation_settings:
         '''Format class member variables
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_class_member_variables_alignment")  # get setting
+        setting = self.settings.get("class_member_variables_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -179,7 +184,7 @@ class HDL_Automation_settings:
         '''If true, always expand coverpoints
         Possible values: {true, false}
         Default value: false'''
-        setting = self.settings.get("HDL_Automation_expand_coverpoints")  # get setting
+        setting = self.settings.get("expand_coverpoints")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -191,7 +196,7 @@ class HDL_Automation_settings:
         '''Format formal parameters
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_formal_parameters_alignment")  # get setting
+        setting = self.settings.get("formal_parameters_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -203,7 +208,7 @@ class HDL_Automation_settings:
         '''Indent formal parameters
         Possible values: {indent,wrap}
         Default value: wrap'''
-        setting = self.settings.get("HDL_Automation_formal_parameters_indentation")  # get setting
+        setting = self.settings.get("formal_parameters_indentation")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -215,7 +220,7 @@ class HDL_Automation_settings:
         '''Format named actual parameters
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_named_parameter_alignment")  # get setting
+        setting = self.settings.get("named_parameter_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -227,7 +232,7 @@ class HDL_Automation_settings:
         '''Indent named parameter assignments
         Possible values: {indent,wrap}
         Default value: wrap'''
-        setting = self.settings.get("HDL_Automation_named_parameter_indentation")  # get setting
+        setting = self.settings.get("named_parameter_indentation")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -239,7 +244,7 @@ class HDL_Automation_settings:
         '''Format named port connections
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_named_port_alignment")  # get setting
+        setting = self.settings.get("named_port_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -251,7 +256,7 @@ class HDL_Automation_settings:
         '''Indent named port connections
         Possible values: {indent,wrap}
         Default value: wrap'''
-        setting = self.settings.get("HDL_Automation_named_port_indentation")  # get setting
+        setting = self.settings.get("named_port_indentation")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -263,7 +268,7 @@ class HDL_Automation_settings:
         '''Format net/variable declarations
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_net_variable_alignment")  # get setting
+        setting = self.settings.get("net_variable_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -275,7 +280,7 @@ class HDL_Automation_settings:
         '''Format port declarations
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_port_declarations_alignment")  # get setting
+        setting = self.settings.get("port_declarations_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -287,7 +292,7 @@ class HDL_Automation_settings:
         '''Indent port declarations
         Possible values: {indent,wrap}
         Default value: wrap'''
-        setting = self.settings.get("HDL_Automation_port_declarations_indentation")  # get setting
+        setting = self.settings.get("port_declarations_indentation")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -299,7 +304,7 @@ class HDL_Automation_settings:
         '''Format struct/union members
         Possible values: {align, flush-left, preserve, infer}
         Default value: infer'''
-        setting = self.settings.get("HDL_Automation_struct_union_members_alignment")  # get setting
+        setting = self.settings.get("struct_union_members_alignment")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -312,7 +317,7 @@ class HDL_Automation_settings:
         them unformatted. This is a short-term measure to reduce risk-of-harm.
         Possible values: {true, false}
         Default value: false'''
-        setting = self.settings.get("HDL_Automation_try_wrap_long_lines")  # get setting
+        setting = self.settings.get("try_wrap_long_lines")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
@@ -324,7 +329,7 @@ class HDL_Automation_settings:
         '''Run the Verible under Windows Subsystem for Linux
         Possible values: {true, false}
         Default value: true'''
-        setting = self.settings.get("HDL_Automation_windows_subsystem_for_linux")  # get setting
+        setting = self.settings.get("windows_subsystem_for_linux")  # get setting
         if type(setting) == str:  # check if setting is a string
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
