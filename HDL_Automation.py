@@ -154,6 +154,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `assignment_statement_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def case_items_alignment(self):
@@ -166,6 +167,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `case_items_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def class_member_variables_alignment(self):
@@ -178,6 +180,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `class_member_variables_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def expand_coverpoints(self):
@@ -190,6 +193,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['true', 'false']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `expand_coverpoints` changed to default value `false`')
         return 'false'  # otherwise return default setting
 
     def formal_parameters_alignment(self):
@@ -202,6 +206,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `formal_parameters_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def formal_parameters_indentation(self):
@@ -214,6 +219,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['indent', 'wrap']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `formal_parameters_indentation` changed to default value `wrap`')
         return 'wrap'  # otherwise return default setting
 
     def named_parameter_alignment(self):
@@ -226,6 +232,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `named_parameter_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def named_parameter_indentation(self):
@@ -238,6 +245,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['indent', 'wrap']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `named_parameter_indentation` changed to default value `wrap`')
         return 'wrap'  # otherwise return default setting
 
     def named_port_alignment(self):
@@ -250,6 +258,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `named_port_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def named_port_indentation(self):
@@ -262,6 +271,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['indent', 'wrap']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `named_port_indentation` changed to default value `wrap`')
         return 'wrap'  # otherwise return default setting
 
     def net_variable_alignment(self):
@@ -274,6 +284,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `net_variable_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def port_declarations_alignment(self):
@@ -286,6 +297,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `port_declarations_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def port_declarations_indentation(self):
@@ -298,6 +310,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['indent', 'wrap']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `port_declarations_indentation` changed to default value `wrap`')
         return 'wrap'  # otherwise return default setting
 
     def struct_union_members_alignment(self):
@@ -310,6 +323,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['align', 'flush-left', 'preserve', 'infer']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `struct_union_members_alignment` changed to default value `infer`')
         return 'infer'  # otherwise return default setting
 
     def try_wrap_long_lines(self):
@@ -323,6 +337,7 @@ class HDL_Automation_settings:
             setting = setting.lower()  # convert to lowercase
             if setting in ['true', 'false']:  # check if setting is correct
                 return setting  # return correct setting
+        print('HDL_Automation: `try_wrap_long_lines` changed to default value `false`')
         return 'false'  # otherwise return default setting
 
     def windows_subsystem_for_linux(self):
@@ -334,7 +349,10 @@ class HDL_Automation_settings:
             setting = setting.strip()  # remove leading and trailing whitespaces
             setting = setting.lower()  # convert to lowercase
             if setting == 'false':  # check if setting is correct
+                return False  # return correct setting
+            if setting == 'true':  # check if setting is correct
                 return True  # return correct setting
+        print('HDL_Automation: `windows_subsystem_for_linux` changed to default value `True`')
         return True  # otherwise return default setting
 
 

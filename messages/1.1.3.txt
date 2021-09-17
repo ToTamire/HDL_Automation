@@ -1,0 +1,5 @@
+HDL_Automation 1.1.3 Changelog:
+
+User interface improvement
+
+ * Wrong setting values notification.
