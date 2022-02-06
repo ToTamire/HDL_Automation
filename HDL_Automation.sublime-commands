@@ -4,6 +4,10 @@
         "command": "format"
     },
     {
+        "caption": "HDL_Automation: Scope Name",
+        "command": "scope_name"
+    },
+    {
         "caption": "HDL_Automation: Settings",
         "command": "edit_settings",
         "args":

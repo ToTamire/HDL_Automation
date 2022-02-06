@@ -10,6 +10,10 @@
             {
                 "caption": "Format",
                 "command": "format"
+            },
+            {
+                "caption": "Scope Name",
+                "command": "scope_name"
             }
         ]
     }

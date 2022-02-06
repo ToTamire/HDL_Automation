@@ -1,0 +1,8 @@
+HDL_Automation 1.2.0 Changelog:
+
+Scope Name can be shown on selection.
+
+* Make selection in Verilog or System Verilog file,
+* Press right mouse button on Verilog or System Verilog file,
+* Select HDL_Automation,
+* Press Scope Name.

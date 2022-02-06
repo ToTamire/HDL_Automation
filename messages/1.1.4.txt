@@ -1,0 +1,5 @@
+HDL_Automation 1.1.4 Changelog:
+
+Documentation improvement
+
+ * Update README

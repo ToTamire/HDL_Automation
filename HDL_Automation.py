@@ -23,6 +23,117 @@ import re
 import subprocess
 
 
+class ScopeNameCommand(sublime_plugin.TextCommand):
+    def run(self, args):
+        '''
+        Called when the scope_name command is run
+        '''
+        # get settings
+        settings.reload()
+        windows_subsystem_for_linux = settings.windows_subsystem_for_linux()
+
+        view = self.view  # get current view
+        file_name = view.file_name()  # get current file path
+        if file_name is not None:  # check if path is an existing regular file
+            path_basename = os.path.basename(file_name)  # get base name of current file path
+            path_root, path_ext = os.path.splitext(path_basename)  # split the current file path into root and extension
+            # if file extension is an Verilog or SystemVerilog extension
+            if path_ext.lower() in ['.v', '.vh', '.sv', '.svh']:
+                view_size = view.size()  # get number of character in current file
+                sublime_region = sublime.Region(0, view_size)  # get region containing current file content
+                content = view.substr(sublime_region)  # get content of the region as a string
+                content = content.encode()  # convert current file content to byte string
+
+                process = []  # create list of process parameters
+                if windows_subsystem_for_linux:  # if user has Verible under Windows Subsystem for Linux
+                    process.append('wsl')  # run the Verible under Windows Subsystem for Linux
+                process.append('verible-verilog-syntax')  # use Verible Parser
+                process.append('--printtree')  # Print tree
+                process.append(f"-")  # to pipe from stdin
+
+                try:  # prevent CalledProcessError
+                    output = subprocess.check_output(
+                        process,  # pass process parameters
+                        input=content,  # pass current file content to stdin
+                        shell=True  # execute subprocess through the shell
+                    )  # run command with arguments and return its output
+                except subprocess.CalledProcessError as err:  # if called process returns a non-zero return code
+                    print(f"HDL_Automation: Subprocess failed with `{err.returncode}` return code")
+                else:  # if subprocess has run successfully
+                    output = output.decode('utf-8')  # convert byte string to UTF-8
+                    lines = output.splitlines()  # split output to lines
+                    selections = view.sel()  # get user selections
+                    sel = []
+                    line_ranges = ''  # initialize parameter which specify lines to format
+                    for key, selection in enumerate(selections):  # for each selection
+                        sel.append(selection.end())  # get ending point of selection
+                    sel.sort()
+                    sel_pos = 0
+                    tags = []
+                    for line in lines:
+                        sel_active = False
+                        if sel_pos < len(sel):
+                            match = re.search(r'@([\d]+)-([\d]+):', line)
+                            if match:
+                                if int(match.group(1)) > sel[sel_pos]:
+                                    sel_active = True
+                                    sel_pos += 1
+                        match = re.match(r'[\s]*Node @[\d]+ \(tag: (.+)\) {', line)
+                        if match:
+                            tags.append({
+                                'tag': match.group(1)
+                            })
+                        match = re.match(r'[\s]*}', line)
+                        if match:
+                            if 'identifier' in tags[-1].keys():
+                                if len(tags) >= 2 and 'identifier' not in tags[-2].keys():
+                                    tags[-2]['identifier'] = tags[-1]['identifier']
+                            del tags[-1]
+                        match = re.match(r'[\s]*Leaf @[\d]+ \(#SymbolIdentifier @[\d]+-[\d]+: "([a-zA-Z_][a-zA-Z0-9_$]*)"\)', line)
+                        if match:
+                            if 'identifier' not in tags[-1].keys():
+                                tags[-1]['identifier'] = match.group(1)
+                        if sel_active:
+                            content = ''
+                            for tag in tags:
+                                if tag['tag'] == 'kModuleDeclaration' and 'identifier' in tag.keys():
+                                    content += f"<div>"
+                                    content += f"<span style='color:var(--redish)'>"
+                                    content += f"module"
+                                    content += f"</span>"
+                                    content += f" "
+                                    content += f"<span style='color:var(--bluish)'>"
+                                    content += f"{tag['identifier']}"
+                                    content += f"</span>"
+                                    content += f"</div>"
+                                if tag['tag'] == 'kInstantiationBase' and 'identifier' in tag.keys():
+                                    content += f"<div>"
+                                    content += f"<span style='color:var(--bluish)'>"
+                                    content += f"{tag['identifier']}"
+                                    content += f"</span>"
+                                    for tag2 in tags:
+                                        if tag2['tag'] == 'kGateInstance' and 'identifier' in tag2.keys():
+                                            content += f" "
+                                            content += f"<span style='color:var(--bluish)'>"
+                                            content += f"{tag['identifier']}"
+                                            content += f"</span>"
+                                    content += f"</div>"
+                            view.show_popup(content, location=-1)
+
+    def is_visible(self):
+        '''
+        Returns True if the format command is able to be run at this time
+        '''
+        view = self.view  # get current view
+        file_name = view.file_name()  # get current file path
+        if file_name is not None:  # check if path is an existing regular file
+            path_basename = os.path.basename(file_name)  # get base name of current file path
+            path_root, path_ext = os.path.splitext(path_basename)  # split the current file path into root and extension
+            # if file extension is an Verilog or SystemVerilog extension
+            if path_ext.lower() in ['.v', '.vh', '.sv', '.svh']:
+                return True  # enable format command
+        return False  # otherwise disable format command
+
 class FormatCommand(sublime_plugin.TextCommand):
     def run(self, args):
         '''
